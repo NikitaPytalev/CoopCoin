@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import Transaction from './Transaction';
 
 @Entity()
 export default class User {
@@ -15,11 +16,14 @@ export default class User {
   email: string;
 
   @Column()
-  Role: number;
+  role: number;
 
   @Column()
   systemBalance: number;
 
   @Column()
   giftBalance: number;
+
+  @OneToMany(() => Transaction, (t) => t.id)
+  transactions: Transaction[];
 }
