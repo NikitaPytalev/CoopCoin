@@ -2,6 +2,7 @@ import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
 import dataSource from './data/dataSource';
+import jwt from 'jsonwebtoken';
 
 dataSource
   .initialize()
@@ -30,6 +31,17 @@ app.use(express.json());
 app.get('/ping', async (_req, res) => {
   res.send({
     message: 'pong'
+  });
+});
+
+app.post('/login', (req, res) => {
+  const email = req.body.email;
+  const user = { email: email };
+
+  const accessToken = jwt.sign(user, 'TEST_SECRET');
+
+  res.json({
+    accessToken
   });
 });
 
