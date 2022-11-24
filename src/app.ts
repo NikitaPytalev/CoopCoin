@@ -2,6 +2,8 @@ import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
 import dataSource from './data/dataSource';
+import auth from './middlewares/auth';
+import * as authService from './services/authService';
 
 dataSource
   .initialize()
@@ -24,10 +26,33 @@ const swaggerOptions = {
 
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
 
-// middleware
 app.use(express.json());
 
-app.get('/ping', async (_req, res) => {
+app.post('/signup', async (req, res) => {
+  const user = req.body;
+
+  const isSignedUp = await authService.signUp(user);
+
+  if (!isSignedUp) res.status(409).send('User already exists');
+
+  res.sendStatus(201);
+});
+
+app.post('/login', async (req, res) => {
+  const credentials = req.body;
+
+  const accessToken = await authService.login(credentials);
+
+  if (accessToken == '') {
+    res.sendStatus(401);
+  } else {
+    res.json({
+      accessToken
+    });
+  }
+});
+
+app.get('/ping', auth, async (_req, res) => {
   res.send({
     message: 'pong'
   });
