@@ -7,7 +7,6 @@ const dataSource = new DataSource({
   username: 'root',
   password: 'password',
   database: 'coopcoin',
-  //entities: [User],
   entities: ['src/data/entities/*.ts'],
   logging: true,
   synchronize: true
