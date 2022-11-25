@@ -2,9 +2,9 @@ import { DataSource } from 'typeorm';
 
 const dataSource = new DataSource({
   type: 'mysql',
-  host: 'localhost',
+  host: 'coop-coin-db.c6xlispgavxm.eu-central-1.rds.amazonaws.com',
   port: 3306,
-  username: 'root',
+  username: 'admin',
   password: 'password',
   database: 'coopcoin',
   entities: ['src/data/entities/*.ts'],
