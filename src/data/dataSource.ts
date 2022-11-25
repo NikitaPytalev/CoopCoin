@@ -1,13 +1,17 @@
 import { DataSource } from 'typeorm';
+import Item from './entities/Item';
+import Purchase from './entities/Purchase';
+import Transaction from './entities/Transaction';
+import User from './entities/User';
 
 const dataSource = new DataSource({
   type: 'mysql',
-  host: 'coop-coin-db.c6xlispgavxm.eu-central-1.rds.amazonaws.com',
+  host: 'localhost',
   port: 3306,
-  username: 'admin',
+  username: 'root',
   password: 'password',
   database: 'coopcoin',
-  entities: ['src/data/entities/*.ts'],
+  entities: [User, Transaction, Purchase, Item],
   logging: true,
   synchronize: true
 });
