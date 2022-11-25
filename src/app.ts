@@ -4,6 +4,7 @@ import swaggerJSDoc from 'swagger-jsdoc';
 import dataSource from './data/dataSource';
 import auth from './middlewares/auth';
 import * as authService from './services/authService';
+import * as userService from './services/userService';
 
 dataSource
   .initialize()
@@ -46,16 +47,30 @@ app.post('/login', async (req, res) => {
   if (accessToken == '') {
     res.sendStatus(401);
   } else {
-    res.json({
-      accessToken
-    });
+    res
+      .json({
+        accessToken
+      })
+      .status(200);
   }
 });
 
+app.get('/users', auth, async (_req, res) => {
+  const users = await userService.getAllUsers();
+
+  res
+    .send({
+      users
+    })
+    .status(200);
+});
+
 app.get('/ping', auth, async (_req, res) => {
-  res.send({
-    message: 'pong'
-  });
+  res
+    .send({
+      message: 'pong'
+    })
+    .status(200);
 });
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));

@@ -33,3 +33,5 @@ export const doesExist = async (email: string, password: string): Promise<boolea
 };
 
 export const addUser = async (user: Partial<User>) => await dataSource.getRepository(User).insert(user);
+
+export const getAllUsers = async () => await dataSource.getRepository(User).find();
