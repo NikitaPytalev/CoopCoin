@@ -1,6 +1,6 @@
 import express from 'express';
 import * as itemController from '../controllers/itemController';
-import auth from '../middlewares/auth';
+import { auth } from '../middlewares/auth';
 
 const router = express.Router();
 

@@ -1,6 +1,4 @@
 import express from 'express';
-import swaggerUi from 'swagger-ui-express';
-import swaggerJSDoc from 'swagger-jsdoc';
 import dataSource from './data/dataSource';
 import authEndpoints from './routes/authRoutes';
 import itemEndpoints from './routes/itemRoutes';

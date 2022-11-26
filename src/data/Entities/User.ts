@@ -1,5 +1,6 @@
 import { Entity, Column, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import Purchase from './Purchase';
+import Role from './Role';
 import Transaction from './Transaction';
 
 @Entity()
@@ -19,8 +20,11 @@ export default class User {
   @Column()
   password: string;
 
-  @Column()
-  role?: number;
+  @Column({
+    type: 'enum',
+    enum: Role
+  })
+  role?: Role;
 
   @Column()
   systemBalance?: number;

@@ -1,8 +1,9 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import jwt from 'jsonwebtoken';
+import Role from '../data/entities/Role';
 import User from '../data/entities/User';
 
-const auth = (req: any, res: Response, next: NextFunction) => {
+export const auth = (req: any, res: Response, next: NextFunction) => {
   const authHeader = req.headers['authorization'];
   if (!authHeader) return res.sendStatus(401);
 
@@ -15,4 +16,15 @@ const auth = (req: any, res: Response, next: NextFunction) => {
   });
 };
 
-export default auth;
+export const isAdmin = (req: any, res: Response, next: NextFunction) => {
+  const authHeader = req.headers['authorization'];
+  if (!authHeader) return res.sendStatus(401);
+
+  const token = authHeader.split(' ')[1];
+
+  jwt.verify(token, 'TEST_SECRET', (err: any, user: any) => {
+    if (err) return res.sendStatus(403);
+    if (user.role != Role.Admin) return res.sendStatus(403);
+    next();
+  });
+};
