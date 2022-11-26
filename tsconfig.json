@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "rootDir": "src",
     "outDir": "dist",
     "lib": ["es2022"],
     "module": "commonjs",
@@ -14,9 +13,11 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata":true,
     "strictPropertyInitialization": false,
+    "resolveJsonModule": true,
     "typeRoots": [
       "src/@types",
       "./node_modules/@types",
     ]   
-  }
+  },
+  "include": ["src"]
 }
