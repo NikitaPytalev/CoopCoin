@@ -2,9 +2,11 @@ import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
 import dataSource from './data/dataSource';
-import auth from './middlewares/auth';
-import * as authService from './services/authService';
-import * as userService from './services/userService';
+import authEndpoints from './routes/authRoutes';
+import itemEndpoints from './routes/itemRoutes';
+import purchaseEndpoints from './routes/purchaseRoutes';
+import transactionEndpoints from './routes/transactionRoutes';
+import userEndpoints from './routes/userRoutes';
 
 dataSource
   .initialize()
@@ -28,53 +30,20 @@ const swaggerOptions = {
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
 
 app.use(express.json());
-
-app.post('/signup', async (req, res) => {
-  const user = req.body;
-
-  const isSignedUp = await authService.signUp(user);
-
-  if (!isSignedUp) res.status(409).send('User already exists');
-
-  res.sendStatus(201);
-});
-
-app.post('/login', async (req, res) => {
-  const credentials = req.body;
-
-  const accessToken = await authService.login(credentials);
-
-  if (accessToken == '') {
-    res.sendStatus(401);
-  } else {
-    res
-      .json({
-        accessToken
-      })
-      .status(200);
-  }
-});
-
-app.get('/users', auth, async (_req, res) => {
-  const users = await userService.getAllUsers();
-
-  res
-    .send({
-      users
-    })
-    .status(200);
-});
-
-app.get('/ping', auth, async (_req, res) => {
-  res
-    .send({
-      message: 'pong'
-    })
-    .status(200);
-});
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use(express.urlencoded());
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
+
+app.use(authEndpoints);
+app.use(itemEndpoints);
+app.use(purchaseEndpoints);
+app.use(transactionEndpoints);
+app.use(userEndpoints);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+// router.get("/", function (req, res) {
+//   res.redirect("/catalog");
+// });

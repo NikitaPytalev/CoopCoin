@@ -6,9 +6,9 @@ import User from './entities/User';
 
 const dataSource = new DataSource({
   type: 'mysql',
-  host: 'ec2-35-157-167-108.eu-central-1.compute.amazonaws.com',
+  host: 'localhost',
   port: 3306,
-  username: 'admin',
+  username: 'root',
   password: 'password',
   database: 'coopcoin',
   entities: [User, Transaction, Purchase, Item],

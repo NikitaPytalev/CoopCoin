@@ -1,4 +1,4 @@
-import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import Item from './Item';
 import User from './User';
 
@@ -7,9 +7,17 @@ export default class Purchase {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => Item, (item) => item.id)
-  srcUserId: number;
+  @Column()
+  public itemId: string;
 
-  @ManyToOne(() => User, (user) => user.id)
-  destUserId: number;
+  @Column()
+  public buyerId: string;
+
+  @ManyToOne(() => Item, (item) => item)
+  @JoinColumn({ name: 'itemId' })
+  item: Item;
+
+  @ManyToOne(() => User, (user) => user)
+  @JoinColumn({ name: 'buyerId' })
+  buyer: User;
 }

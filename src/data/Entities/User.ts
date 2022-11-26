@@ -1,4 +1,5 @@
 import { Entity, Column, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import Purchase from './Purchase';
 import Transaction from './Transaction';
 
 @Entity()
@@ -7,10 +8,10 @@ export default class User {
   id: string;
 
   @Column()
-  firstName: string;
+  firstName?: string;
 
   @Column()
-  lastName: string;
+  lastName?: string;
 
   @Column()
   email: string;
@@ -19,14 +20,17 @@ export default class User {
   password: string;
 
   @Column()
-  role: number;
+  role?: number;
 
   @Column()
-  systemBalance: number;
+  systemBalance?: number;
 
   @Column()
-  giftBalance: number;
+  giftBalance?: number;
 
-  @OneToMany(() => Transaction, (t) => t.id)
-  transactions: Transaction[];
+  @OneToMany(() => Transaction, (transaction) => transaction)
+  transactions?: Transaction[];
+
+  @OneToMany(() => Purchase, (purchase) => purchase)
+  purchases?: Purchase[];
 }

@@ -1,4 +1,4 @@
-import { Entity, Column, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
+import { Entity, Column, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, JoinColumn } from 'typeorm';
 import TransactionType from './TransactionType';
 import User from './User';
 
@@ -14,7 +14,7 @@ export default class Transaction {
   reason: string;
 
   @Column()
-  comment: string;
+  comment?: string;
 
   @Column({
     type: 'enum',
@@ -28,9 +28,17 @@ export default class Transaction {
   })
   createdAt: Date;
 
-  @ManyToOne(() => User, (user) => user.id)
-  srcUserId: number;
+  @Column()
+  public srcUserId: string;
 
-  @ManyToOne(() => User, (user) => user.id)
-  destUserId: number;
+  @Column()
+  public destUserId: string;
+
+  @ManyToOne(() => User, (user) => user)
+  @JoinColumn({ name: 'srcUserId' })
+  srcUser: User;
+
+  @ManyToOne(() => User, (user) => user)
+  @JoinColumn({ name: 'destUserId' })
+  destUser: User;
 }

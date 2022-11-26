@@ -10,7 +10,9 @@ export const findById = async (id: string): Promise<User | null> => {
 };
 
 export const find = async (partialUser: Partial<User>): Promise<User | null> => {
-  const user = await dataSource.getRepository(User).findOneBy(partialUser);
+  const user = await dataSource.getRepository(User).findOne({
+    where: partialUser
+  });
 
   return user;
 };
@@ -23,14 +25,14 @@ export const doesExistById = async (id: string): Promise<boolean> => {
   return Boolean(foundUser);
 };
 
-export const doesExist = async (email: string, password: string): Promise<boolean> => {
-  const foundUser = await dataSource.getRepository(User).findOneBy({
-    email,
-    password
-  });
+// export const doesExist = async (email: string, password: string): Promise<boolean> => {
+//   const foundUser = await dataSource.getRepository(User).findOneBy({
+//     email,
+//     password
+//   });
 
-  return Boolean(foundUser);
-};
+//   return Boolean(foundUser);
+// };
 
 export const addUser = async (user: Partial<User>) => await dataSource.getRepository(User).insert(user);
 
