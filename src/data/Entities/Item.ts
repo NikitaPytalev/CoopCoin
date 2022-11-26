@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import Purchase from './Purchase';
 
 @Entity()
 export default class Item {
@@ -22,4 +23,7 @@ export default class Item {
 
   @Column()
   giftBalance: number;
+
+  @OneToMany(() => Purchase, (purchase) => purchase)
+  purchases?: Purchase[];
 }
