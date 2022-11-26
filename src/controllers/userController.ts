@@ -20,3 +20,9 @@ export const user_get = async (req: Request, res: Response) => {
     })
     .status(200);
 };
+
+export const user_balance_put = async (req: Request, res: Response) => {
+  await userService.updateSystemBalance(req.params.id, Number(req.params.amount));
+
+  res.sendStatus(204);
+};

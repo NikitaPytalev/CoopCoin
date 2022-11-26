@@ -1,6 +1,6 @@
 enum TransactionType {
   System,
-  Balance
+  Gift
 }
 
 export default TransactionType;

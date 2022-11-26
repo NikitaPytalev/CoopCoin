@@ -29,10 +29,10 @@ export default class Transaction {
   createdAt: Date;
 
   @Column()
-  public srcUserId: string;
+  srcUserId: string;
 
   @Column()
-  public destUserId: string;
+  destUserId: string;
 
   @ManyToOne(() => User, (user) => user)
   @JoinColumn({ name: 'srcUserId' })

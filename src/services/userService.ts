@@ -37,3 +37,30 @@ export const doesExistById = async (id: string): Promise<boolean> => {
 export const addUser = async (user: Partial<User>) => await dataSource.getRepository(User).insert(user);
 
 export const getAllUsers = async () => await dataSource.getRepository(User).find();
+
+export const updateSystemBalance = async (userId: string, amount: number) => {
+  const user = await findById(userId);
+
+  // TODO: implement exception
+  if (!user) return;
+
+  await dataSource.getRepository(User).update(
+    { id: userId },
+    {
+      systemBalance: user.systemBalance + amount
+    }
+  );
+};
+
+export const updateGiftBalance = async (userId: string, amount: number) => {
+  const user = await findById(userId);
+
+  if (!user) return;
+
+  await dataSource.getRepository(User).update(
+    { id: userId },
+    {
+      giftBalance: user.giftBalance + amount
+    }
+  );
+};

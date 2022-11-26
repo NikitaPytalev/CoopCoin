@@ -26,11 +26,11 @@ export default class User {
   })
   role?: Role;
 
-  @Column()
-  systemBalance?: number;
+  @Column({ default: 0 })
+  systemBalance: number;
 
-  @Column()
-  giftBalance?: number;
+  @Column({ default: 0 })
+  giftBalance: number;
 
   @OneToMany(() => Transaction, (transaction) => transaction)
   transactions?: Transaction[];
