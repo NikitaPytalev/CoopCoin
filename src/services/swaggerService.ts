@@ -3,29 +3,32 @@ import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import { version } from '../../package.json';
 
-const options: swaggerJsdoc.Options = {
+const options = {
   definition: {
     openapi: '3.0.3',
     info: {
-      title: 'Coop Coin Docs',
+      title: 'Coop Coin Endpoints',
       version
     },
     components: {
-      securitySchemas: {
+      securitySchemes: {
         bearerAuth: {
           type: 'http',
           scheme: 'bearer',
           bearerFormat: 'JWT'
         }
+      },
+      responses: {
+        authenticationError: {
+          description: 'Authentication failed'
+        },
+        authorizationError: {
+          description: 'Authorization failed'
+        }
       }
-    },
-    security: [
-      {
-        bearerAuth: []
-      }
-    ]
+    }
   },
-  apis: ['./src/services/swaggerService.ts', './src/routes/*.ts']
+  apis: ['./src/routes/*.{ts,js}']
 };
 
 const swaggerDocs = swaggerJsdoc(options);

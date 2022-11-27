@@ -14,6 +14,8 @@ export const index = async (req: Request, res: Response) => {
 export const user_get = async (req: Request, res: Response) => {
   const user = await userService.findById(req.params.id);
 
+  if (!user) return 404;
+
   res
     .send({
       user
