@@ -6,7 +6,7 @@ import User from './models/User';
 
 const dataSource = new DataSource({
   type: 'mysql',
-  host: 'coop-coin-db.c6xlispgavxm.eu-central-1.rds.amazonaws.com',
+  host: 'awseb-e-2mnqjftdsp-stack-awsebrdsdatabase-72kxlbrmlfgq.c6xlispgavxm.eu-central-1.rds.amazonaws.com',
   port: 3306,
   username: 'admin',
   password: 'password',
