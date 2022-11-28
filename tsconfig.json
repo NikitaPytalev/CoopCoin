@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "rootDir": "src",
     "outDir": "dist",
     "module": "commonjs",
     "target": "es6",
@@ -17,7 +18,5 @@
       "src/@types",
       "./node_modules/@types",
     ]   
-  },
-  "include": ["./src"],
-  "exclude": ["./node_modules"],
+  }
 }

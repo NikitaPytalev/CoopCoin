@@ -1,4 +1,4 @@
-import TransactionType from '../data/entities/TransactionType';
+import TransactionType from '../data/models/TransactionType';
 
 interface TransactionPayload {
   id: string;

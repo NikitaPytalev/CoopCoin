@@ -1,14 +1,13 @@
 import { Express, Request, Response } from 'express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import { version } from '../../package.json';
 
 const options = {
   definition: {
     openapi: '3.0.3',
     info: {
       title: 'Coop Coin Endpoints',
-      version
+      version: '1.0'
     },
     components: {
       securitySchemes: {
