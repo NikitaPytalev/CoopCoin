@@ -12,9 +12,9 @@ phases:
       - tsc
 
 artifacts:
-    type: zip
-    files:
+  type: zip
+  files:
     - package.json
     - package-lock.json
     - 'dist/**/*'
-  discard-paths: yes
+discard-paths: yes
