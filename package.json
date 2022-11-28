@@ -5,8 +5,8 @@
   "main": "app.ts",
   "scripts": {
     "build": "tsc",
-    "serve": "nodemon src/app.ts"
-    
+    "serve": "nodemon src/app.ts",
+    "start": "node dist/src/app.js"
   },
   "keywords": [],
   "author": "",
