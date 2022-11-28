@@ -10,7 +10,7 @@ const router = express.Router();
  *   get:
  *     tags:
  *       - users
- *     summary: Get all users (Admins only)
+ *     summary: Get all users
  *     description: Returns all users
  *     security:
  *       - bearerAuth: []
@@ -24,7 +24,7 @@ const router = express.Router();
  *       403:
  *         $ref: '#/components/responses/authorizationError'
  */
-router.get('/users', [auth, isAdmin], userController.index);
+router.get('/users', [auth], userController.index);
 
 /**
  * @openapi
