@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import Purchase from './Purchase';
 
 @Entity()
-export default class Item {
+class Item {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -27,3 +27,5 @@ export default class Item {
   @OneToMany(() => Purchase, (purchase) => purchase)
   purchases?: Purchase[];
 }
+
+export default Item;

@@ -4,7 +4,7 @@ import Role from './Role';
 import Transaction from './Transaction';
 
 @Entity()
-export default class User {
+class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -38,3 +38,5 @@ export default class User {
   @OneToMany(() => Purchase, (purchase) => purchase)
   purchases?: Purchase[];
 }
+
+export default User;

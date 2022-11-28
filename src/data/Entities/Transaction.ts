@@ -3,7 +3,7 @@ import TransactionType from './TransactionType';
 import User from './User';
 
 @Entity()
-export default class Transaction {
+class Transaction {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -42,3 +42,5 @@ export default class Transaction {
   @JoinColumn({ name: 'destUserId' })
   destUser: User;
 }
+
+export default Transaction;
