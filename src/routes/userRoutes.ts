@@ -58,7 +58,7 @@ router.get('/users/:id', auth, userController.user_get);
 /**
  * @openapi
  * /users/{id}/balance/{amount}:
- *  put:
+ *  patch:
  *    tags:
  *      - users
  *    summary: Update user balance (Admins only)
@@ -82,6 +82,6 @@ router.get('/users/:id', auth, userController.user_get);
  *      403:
  *         $ref: '#/components/responses/authorizationError'
  */
-router.put('/users/:id/balance/:amount', [auth, isAdmin], userController.user_balance_put);
+router.patch('/users/:id/balance/:amount', [auth, isAdmin], userController.user_balance_put);
 
 export default router;
