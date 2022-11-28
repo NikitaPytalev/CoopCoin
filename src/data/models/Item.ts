@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import Purchase from './Purchase';
 
 @Entity()
-class Item {
+export default class Item {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -10,22 +10,19 @@ class Item {
   title: string;
 
   @Column()
-  photo: string;
+  description?: string;
 
-  @Column()
+  @Column({ type: 'numeric', precision: 10, scale: 2 })
   price: number;
 
-  @Column()
-  description: string;
+  @Column({
+    type: 'longblob'
+  })
+  image?: Buffer;
 
   @Column()
   amount: number;
 
-  @Column()
-  giftBalance: number;
-
   @OneToMany(() => Purchase, (purchase) => purchase)
   purchases?: Purchase[];
 }
-
-export default Item;

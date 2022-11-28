@@ -1,4 +1,5 @@
 import express from 'express';
+import fileUpload from 'express-fileupload';
 import dataSource from './data/dataSource';
 import authEndpoints from './routes/authRoutes';
 import itemEndpoints from './routes/itemRoutes';
@@ -21,6 +22,11 @@ app.listen(PORT, () => {
 });
 
 app.use(express.json());
+app.use(
+  fileUpload({
+    limits: { fileSize: 50 * 1024 * 1024 }
+  })
+);
 
 useSwagger(app);
 

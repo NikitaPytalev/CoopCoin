@@ -10,7 +10,7 @@ const dataSource = new DataSource({
   port: 3306,
   username: 'admin',
   password: 'password',
-  database: 'coopcoin',
+  database: 'coopcoin-dev',
   entities: [User, Transaction, Purchase, Item],
   logging: true,
   synchronize: true
