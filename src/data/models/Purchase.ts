@@ -3,7 +3,7 @@ import Item from './Item';
 import User from './User';
 
 @Entity()
-class Purchase {
+export default class Purchase {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -21,5 +21,3 @@ class Purchase {
   @JoinColumn({ name: 'buyerId' })
   buyer: User;
 }
-
-export default Purchase;

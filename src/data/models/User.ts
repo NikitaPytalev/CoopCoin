@@ -1,10 +1,10 @@
 import { Entity, Column, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import Purchase from './Purchase';
-import Role from './Role';
+import { Role } from '../enums/Role';
 import Transaction from './Transaction';
 
 @Entity()
-class User {
+export default class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -20,11 +20,8 @@ class User {
   @Column()
   password: string;
 
-  @Column({
-    type: 'enum',
-    enum: Role
-  })
-  role?: Role;
+  @Column({ type: 'enum', enum: Role, default: Role.User })
+  role: Role;
 
   @Column({ default: 0 })
   systemBalance: number;
@@ -38,5 +35,3 @@ class User {
   @OneToMany(() => Purchase, (purchase) => purchase)
   purchases?: Purchase[];
 }
-
-export default User;

@@ -1,6 +1,6 @@
 import Transaction from '../data/models/Transaction';
 import dataSource from '../data/dataSource';
-import TransactionType from '../data/models/TransactionType';
+import { TransactionType } from '../data/enums/TransactionType';
 import * as userService from '../services/userService';
 import TransactionPayload from '../models/transactionPayload';
 

@@ -1,9 +1,9 @@
 import { Entity, Column, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, JoinColumn } from 'typeorm';
-import TransactionType from './TransactionType';
+import { TransactionType } from '../enums/TransactionType';
 import User from './User';
 
 @Entity()
-class Transaction {
+export default class Transaction {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -22,10 +22,7 @@ class Transaction {
   })
   type: TransactionType;
 
-  @CreateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)'
-  })
+  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)' })
   createdAt: Date;
 
   @Column()
@@ -42,5 +39,3 @@ class Transaction {
   @JoinColumn({ name: 'destUserId' })
   destUser: User;
 }
-
-export default Transaction;

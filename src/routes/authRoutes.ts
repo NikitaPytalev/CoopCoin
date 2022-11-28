@@ -62,7 +62,7 @@ router.post('/signup', authController.signup_post);
  *             properties:
  *               email:
  *                 type: string
- *                 example: test@gmail.com
+ *                 example: admin@coopcoin.com
  *               password:
  *                 type: string
  *                 example: secret_password

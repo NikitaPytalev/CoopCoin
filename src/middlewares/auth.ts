@@ -1,6 +1,6 @@
 import { NextFunction, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import Role from '../data/models/Role';
+import { Role } from '../data/enums/Role';
 import User from '../data/models/User';
 
 export const auth = (req: any, res: Response, next: NextFunction) => {

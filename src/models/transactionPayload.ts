@@ -1,4 +1,4 @@
-import TransactionType from '../data/models/TransactionType';
+import { TransactionType } from '../data/enums/TransactionType';
 
 interface TransactionPayload {
   id: string;
