@@ -1,4 +1,4 @@
-import User from '../data/entities/User';
+import User from '../data/models/User';
 import * as userService from './userService';
 import * as jwtService from './jwtService';
 

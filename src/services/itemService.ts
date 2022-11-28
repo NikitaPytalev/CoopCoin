@@ -1,4 +1,4 @@
-import Item from '../data/entities/Item';
+import Item from '../data/models/Item';
 import dataSource from '../data/dataSource';
 
 export const findById = async (id: string): Promise<Item | null> => {

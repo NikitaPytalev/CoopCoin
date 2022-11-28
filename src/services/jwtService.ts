@@ -1,4 +1,4 @@
-import User from '../data/entities/User';
+import User from '../data/models/User';
 import jwt from 'jsonwebtoken';
 
 export const createAccessToken = (user: User): string => {

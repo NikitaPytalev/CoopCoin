@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import Role from '../data/entities/Role';
-import User from '../data/entities/User';
+import Role from '../data/models/Role';
+import User from '../data/models/User';
 
 export const auth = (req: any, res: Response, next: NextFunction) => {
   const authHeader = req.headers['authorization'];

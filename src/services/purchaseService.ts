@@ -1,4 +1,4 @@
-import Purchase from '../data/entities/Purchase';
+import Purchase from '../data/models/Purchase';
 import dataSource from '../data/dataSource';
 
 export const findById = async (id: string): Promise<Purchase | null> => {
