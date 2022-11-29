@@ -6,6 +6,7 @@ import itemEndpoints from './routes/itemRoutes';
 import purchaseEndpoints from './routes/purchaseRoutes';
 import transactionEndpoints from './routes/transactionRoutes';
 import userEndpoints from './routes/userRoutes';
+import cors from 'cors';
 import { useSwagger } from './services/swaggerService';
 
 dataSource
@@ -17,10 +18,11 @@ const PORT = process.env.PORT || 80;
 
 const app = express();
 
-app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
-});
-
+app.use(
+  cors({
+    origin: '*'
+  })
+);
 app.use(express.json());
 app.use(
   fileUpload({
@@ -35,3 +37,7 @@ app.use(itemEndpoints);
 app.use(purchaseEndpoints);
 app.use(transactionEndpoints);
 app.use(userEndpoints);
+
+app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
+});
