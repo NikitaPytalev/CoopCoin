@@ -14,15 +14,11 @@ export const signup_post = async (req: Request, res: Response) => {
 export const login_post = async (req: Request, res: Response) => {
   const credentials = req.body;
 
-  const accessToken = await authService.login(credentials);
+  const loginPayload = await authService.login(credentials);
 
-  if (accessToken == '') {
+  if (loginPayload == null) {
     res.sendStatus(401);
   } else {
-    res
-      .json({
-        accessToken
-      })
-      .status(200);
+    res.json(loginPayload).status(200);
   }
 };
