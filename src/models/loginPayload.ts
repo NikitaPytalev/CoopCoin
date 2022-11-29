@@ -1,6 +1,6 @@
 interface LoginPayload {
-  id: string;
   accessToken: string;
+  userId: string;
 }
 
 export default LoginPayload;

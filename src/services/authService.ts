@@ -18,8 +18,8 @@ export const login = async (partialUser: Partial<User>): Promise<LoginPayload | 
 
   const accessToken = jwtService.createAccessToken(user);
   const loginPayload = {
-    id: user.id,
-    accessToken
+    accessToken,
+    userId: user.id
   };
 
   return loginPayload;
