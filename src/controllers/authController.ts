@@ -1,6 +1,10 @@
 import { Request, Response } from 'express';
 import * as authService from '../services/authService';
 
+/**
+ * Эта функция позволяет зарегистрировать объект юзера или админа
+ * на основании тела запроса.
+ */
 export const signup_post = async (req: Request, res: Response) => {
   const user = req.body;
 
@@ -11,6 +15,11 @@ export const signup_post = async (req: Request, res: Response) => {
   res.sendStatus(201);
 };
 
+/**
+ * Эта функция принимает логин и пароль из тела запроса
+ * и обращается в сервис аутентификации для получения тела ответа
+ * с данными accessToken и userId
+ */
 export const login_post = async (req: Request, res: Response) => {
   const credentials = req.body;
 

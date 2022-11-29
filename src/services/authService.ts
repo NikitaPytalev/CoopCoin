@@ -3,6 +3,9 @@ import * as userService from './userService';
 import * as jwtService from './jwtService';
 import LoginPayload from '../models/loginPayload';
 
+/**
+ * Запрашивает userService создать юзера по переданным данным.
+ */
 export const signUp = async (user: Partial<User>): Promise<boolean> => {
   // TODO: Add if exists check
 
@@ -11,6 +14,9 @@ export const signUp = async (user: Partial<User>): Promise<boolean> => {
   return true;
 };
 
+/**
+ * Запрашивает jwtService создать accessToken для переданного юзера
+ */
 export const login = async (partialUser: Partial<User>): Promise<LoginPayload | null> => {
   const user = await userService.find(partialUser);
 

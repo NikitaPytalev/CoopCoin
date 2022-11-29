@@ -9,6 +9,10 @@ import userEndpoints from './routes/userRoutes';
 import cors from 'cors';
 import { useSwagger } from './services/swaggerService';
 
+/**
+ * Регистрация всех компонентов системы
+ */
+
 dataSource
   .initialize()
   .then(() => console.log('Connection has been established.'))

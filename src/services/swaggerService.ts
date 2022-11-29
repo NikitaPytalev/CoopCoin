@@ -32,6 +32,9 @@ const options = {
 
 const swaggerDocs = swaggerJsdoc(options);
 
+/**
+ * Эта функция позволяет добавить swagger ui к серверу
+ */
 export const useSwagger = (app: Express) => {
   app.get('/', (_req, res) => {
     res.redirect('/api-docs');

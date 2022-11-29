@@ -4,6 +4,9 @@ import Purchase from './models/Purchase';
 import Transaction from './models/Transaction';
 import User from './models/User';
 
+/**
+ * Регистрация соединения с базой данных
+ */
 const dataSource = new DataSource({
   type: 'mysql',
   host: 'awseb-e-2mnqjftdsp-stack-awsebrdsdatabase-72kxlbrmlfgq.c6xlispgavxm.eu-central-1.rds.amazonaws.com',
