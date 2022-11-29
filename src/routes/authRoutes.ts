@@ -30,8 +30,8 @@ const router = express.Router();
  *                 type: string
  *                 example: secret_password
  *               role:
- *                 type: number
- *                 example: 0
+ *                 type: string
+ *                 example: admin
  *               systemBalance:
  *                 type: number
  *                 example: 50

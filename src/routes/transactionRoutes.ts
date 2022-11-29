@@ -53,11 +53,8 @@ router.get('/transactions', auth, transactionController.index);
  *                 type: string
  *                 example: Happy Birthday!
  *               type:
- *                 type: number
- *                 example: 1
- *               role:
- *                 type: number
- *                 example: 0
+ *                 type: string
+ *                 example: system
  *               srcUserId:
  *                 type: string
  *                 example: 3bd62dda-1fa4-44ed-964a-661ced5fd7f2
@@ -67,8 +64,10 @@ router.get('/transactions', auth, transactionController.index);
  *     responses:
  *       201:
  *         description: Successful operation
- *       409:
- *         description: User already exists
+ *       401:
+ *         $ref: '#/components/responses/authenticationError'
+ *       403:
+ *         $ref: '#/components/responses/authorizationError'
  */
 router.post('/transactions', auth, transactionController.transaction_post);
 
