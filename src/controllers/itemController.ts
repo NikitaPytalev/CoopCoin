@@ -24,7 +24,7 @@ export const item_post = async (req: Request, res: Response) => {
 
   // TODO: check if image in null
 
-  item.image = file.data;
+  item.image = file?.data;
 
   await itemService.addItem(item);
 
