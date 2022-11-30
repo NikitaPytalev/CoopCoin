@@ -18,7 +18,10 @@ export const index = async (req: Request, res: Response) => {
  * Эта функция запрашивает purchase сервис создать покупку по данным из тела запроса
  */
 export const purchase_post = async (req: Request, res: Response) => {
-  const purchase = req.body;
+  const purchase = {
+    itemId: req.body.itemId,
+    buyerId: req.body.buyerId
+  };
 
   await purchaseService.addPurchase(purchase);
 

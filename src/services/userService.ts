@@ -78,3 +78,8 @@ export const updateGiftBalance = async (userId: string, amount: number) => {
     }
   );
 };
+
+/**
+ * Обновляет юзера
+ */
+export const updateUser = async (user: User) => await dataSource.getRepository(User).save(user);

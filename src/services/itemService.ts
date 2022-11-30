@@ -21,3 +21,8 @@ export const addItem = async (item: Partial<Item>) => await dataSource.getReposi
  * Запрашивает список всех айтемов из базы данных
  */
 export const getAllItems = async () => await dataSource.getRepository(Item).find();
+
+/**
+ * Обновляет айтем
+ */
+export const updateItem = async (item: Item) => await dataSource.getRepository(Item).save(item);

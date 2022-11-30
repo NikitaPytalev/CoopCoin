@@ -1,5 +1,8 @@
 import Purchase from '../data/models/Purchase';
 import dataSource from '../data/dataSource';
+import PurchasePayload from '../models/purchasePayload';
+import * as itemService from './itemService';
+import * as userService from './userService';
 
 /**
  * Ищет покупку по переданному id в базе данных
@@ -15,8 +18,18 @@ export const findById = async (id: string): Promise<Purchase | null> => {
 /**
  * Отправляет покупку в базу данных
  */
-export const addPurchase = async (purchase: Partial<Purchase>) =>
-  await dataSource.getRepository(Purchase).insert(purchase);
+export const addPurchase = async (payload: PurchasePayload) => {
+  const item = await itemService.findById(payload.itemId);
+  const user = await userService.findById(payload.buyerId);
+  if (!item || !user) return;
+
+  item.amount--;
+  user.giftBalance -= item.price;
+
+  await itemService.updateItem(item);
+  await userService.updateUser(user);
+  await dataSource.getRepository(Purchase).insert(payload);
+};
 
 /**
  * Запрашивает список всех покупок из базы данных
