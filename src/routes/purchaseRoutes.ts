@@ -50,10 +50,12 @@ router.get('/purchases', auth, purchaseController.index);
  *                 type: string
  *                 example: af80a51c-afc7-4df5-a5b6-c8887dd25477
  *     responses:
- *       201:
- *         description: Successful operation
- *       409:
- *         description: User already exists
+ *       401:
+ *         $ref: '#/components/responses/authenticationError'
+ *       403:
+ *         $ref: '#/components/responses/authorizationError'
+ *       404:
+ *         $ref: '#/components/responses/entityNotFoundError'
  */
 router.post('/purchases', auth, purchaseController.purchase_post);
 

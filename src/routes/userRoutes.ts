@@ -51,9 +51,9 @@ router.get('/users', [auth], userController.index);
  *       403:
  *         $ref: '#/components/responses/authorizationError'
  *       404:
- *         description: User not found
+ *         $ref: '#/components/responses/entityNotFoundError'
  */
-router.get('/users/:id', auth, userController.user_get);
+router.get('/users/:id', [auth], userController.user_get);
 
 /**
  * @openapi
@@ -81,7 +81,9 @@ router.get('/users/:id', auth, userController.user_get);
  *         $ref: '#/components/responses/authenticationError'
  *      403:
  *         $ref: '#/components/responses/authorizationError'
+ *      404:
+ *         $ref: '#/components/responses/entityNotFoundError'
  */
-router.patch('/users/:id/balance/:amount', [auth, isAdmin], userController.user_balance_put);
+router.patch('/users/:id/balance/:amount', [auth, isAdmin], userController.user_balance_patch);
 
 export default router;

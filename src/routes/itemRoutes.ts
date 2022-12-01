@@ -51,7 +51,7 @@ router.get('/items', auth, itemController.index);
  *       403:
  *         $ref: '#/components/responses/authorizationError'
  *       404:
- *         description: Item not found
+ *         $ref: '#/components/responses/entityNotFoundError'
  */
 router.get('/items/:id', auth, itemController.item_get);
 

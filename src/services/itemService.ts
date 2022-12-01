@@ -1,13 +1,16 @@
 import Item from '../data/models/Item';
 import dataSource from '../data/dataSource';
+import { EntityNotFoundException } from '../errors/EntityNotFoundException';
 
 /**
  * Запрашивает айтем по переданному id у базы данных
  */
-export const findById = async (id: string): Promise<Item | null> => {
+export const findById = async (id: string): Promise<Item> => {
   const item = await dataSource.getRepository(Item).findOneBy({
     id
   });
+
+  if (!item) throw new EntityNotFoundException('Item');
 
   return item;
 };

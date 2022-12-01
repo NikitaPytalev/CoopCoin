@@ -1,13 +1,16 @@
 import User from '../data/models/User';
 import dataSource from '../data/dataSource';
+import { EntityNotFoundException } from '../errors/EntityNotFoundException';
 
 /**
  * Эта функция позволяет найти юзера по id
  */
-export const findById = async (id: string): Promise<User | null> => {
+export const findById = async (id: string): Promise<User> => {
   const user = await dataSource.getRepository(User).findOneBy({
     id
   });
+
+  if (!user) throw new EntityNotFoundException('User');
 
   return user;
 };
@@ -15,23 +18,14 @@ export const findById = async (id: string): Promise<User | null> => {
 /**
  * Эта функция ищет юзера в бд по передынным свойствам, пр. email, password
  */
-export const find = async (partialUser: Partial<User>): Promise<User | null> => {
+export const find = async (partialUser: Partial<User>): Promise<User> => {
   const user = await dataSource.getRepository(User).findOne({
     where: partialUser
   });
 
+  if (!user) throw new EntityNotFoundException('User');
+
   return user;
-};
-
-/**
- * Эта функция проверяет есть ли юзер с переданным в нее id в базе данных
- */
-export const doesExistById = async (id: string): Promise<boolean> => {
-  const foundUser = await dataSource.getRepository(User).findOneBy({
-    id
-  });
-
-  return Boolean(foundUser);
 };
 
 /**
@@ -51,8 +45,7 @@ export const getAllUsers = async () => await dataSource.getRepository(User).find
 export const updateSystemBalance = async (userId: string, amount: number) => {
   const user = await findById(userId);
 
-  // TODO: implement exception
-  if (!user) return;
+  if (!user) throw new EntityNotFoundException('User');
 
   await dataSource.getRepository(User).update(
     { id: userId },
@@ -69,7 +62,7 @@ export const updateSystemBalance = async (userId: string, amount: number) => {
 export const updateGiftBalance = async (userId: string, amount: number) => {
   const user = await findById(userId);
 
-  if (!user) return;
+  if (!user) throw new EntityNotFoundException('User');
 
   await dataSource.getRepository(User).update(
     { id: userId },

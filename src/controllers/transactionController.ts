@@ -8,11 +8,7 @@ import * as transactionService from '../services/transactionService';
 export const index = async (req: Request, res: Response) => {
   const transactions = await transactionService.getAllTransactions();
 
-  res
-    .send({
-      transactions
-    })
-    .status(200);
+  res.status(200).send({ transactions });
 };
 
 /**

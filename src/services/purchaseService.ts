@@ -3,14 +3,17 @@ import dataSource from '../data/dataSource';
 import PurchasePayload from '../models/purchasePayload';
 import * as itemService from './itemService';
 import * as userService from './userService';
+import { EntityNotFoundException } from '../errors/EntityNotFoundException';
 
 /**
  * Ищет покупку по переданному id в базе данных
  */
-export const findById = async (id: string): Promise<Purchase | null> => {
+export const findById = async (id: string): Promise<Purchase> => {
   const purchase = await dataSource.getRepository(Purchase).findOneBy({
     id
   });
+
+  if (!purchase) throw new EntityNotFoundException('Purchase');
 
   return purchase;
 };
@@ -20,8 +23,10 @@ export const findById = async (id: string): Promise<Purchase | null> => {
  */
 export const addPurchase = async (payload: PurchasePayload) => {
   const item = await itemService.findById(payload.itemId);
+  if (!item) throw new EntityNotFoundException('Item');
+
   const user = await userService.findById(payload.buyerId);
-  if (!item || !user) return;
+  if (!user) throw new EntityNotFoundException('User');
 
   item.amount--;
   user.giftBalance -= item.price;

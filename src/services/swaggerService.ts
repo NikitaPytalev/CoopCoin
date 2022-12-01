@@ -23,6 +23,9 @@ const options = {
         },
         authorizationError: {
           description: 'Authorization failed'
+        },
+        entityNotFoundError: {
+          description: 'Entity was not found'
         }
       }
     }

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import * as itemService from '../services/itemService';
 import { UploadedFile } from 'express-fileupload';
+import { EntityNotFoundException } from '../errors/EntityNotFoundException';
 
 /**
  * Обращается к айтем сервису для получения всех юзеров.
@@ -8,11 +9,7 @@ import { UploadedFile } from 'express-fileupload';
 export const index = async (req: Request, res: Response) => {
   const items = await itemService.getAllItems();
 
-  res
-    .send({
-      items
-    })
-    .status(200);
+  res.status(200).send({ items });
 };
 
 /**
@@ -35,13 +32,13 @@ export const item_post = async (req: Request, res: Response) => {
  * Обращается к айтем сервису для получения конкретного юзера по id
  */
 export const item_get = async (req: Request, res: Response) => {
-  const item = await itemService.findById(req.params.id);
+  try {
+    const item = await itemService.findById(req.params.id);
 
-  if (!item) return 404;
-
-  res
-    .send({
-      item
-    })
-    .status(200);
+    res.send({ item }).status(200);
+  } catch (err) {
+    if (err instanceof EntityNotFoundException) {
+      res.status(404).send(err.message);
+    }
+  }
 };

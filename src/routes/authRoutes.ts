@@ -67,6 +67,8 @@ router.post('/signup', authController.signup_post);
  *                 type: string
  *                 example: secret_password
  *     responses:
+ *      200:
+ *         description: Successful operation
  *      401:
  *         $ref: '#/components/responses/authenticationError'
  */
