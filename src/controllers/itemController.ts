@@ -49,12 +49,9 @@ export const item_get = async (req: Request, res: Response) => {
 export const item_image_get = async (req: Request, res: Response) => {
   try {
     const image = await itemService.findImageByItemId(req.params.id);
-    const mimeType = 'image/png';
 
     res.set('Content-Type', 'image/jpeg');
     res.send(image);
-
-    //res.send({ image }).status(200);
   } catch (err) {
     if (err instanceof EntityNotFoundException) {
       res.status(404).send(err.message);
