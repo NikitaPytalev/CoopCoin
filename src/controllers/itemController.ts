@@ -25,17 +25,36 @@ export const item_post = async (req: Request, res: Response) => {
 
   await itemService.addItem(item);
 
-  res.sendStatus(201);
+  res.status(201).send(item.id);
 };
 
 /**
- * Обращается к айтем сервису для получения конкретного юзера по id
+ * Обращается к айтем сервису для получения конкретного айтема по id
  */
 export const item_get = async (req: Request, res: Response) => {
   try {
     const item = await itemService.findById(req.params.id);
 
     res.send({ item }).status(200);
+  } catch (err) {
+    if (err instanceof EntityNotFoundException) {
+      res.status(404).send(err.message);
+    }
+  }
+};
+
+/**
+ * Обращается к айтем сервису для получения изображения по id айтема
+ */
+export const item_image_get = async (req: Request, res: Response) => {
+  try {
+    const image = await itemService.findImageByItemId(req.params.id);
+    const mimeType = 'image/png';
+
+    res.set('Content-Type', 'image/jpeg');
+    res.send(image);
+
+    //res.send({ image }).status(200);
   } catch (err) {
     if (err instanceof EntityNotFoundException) {
       res.status(404).send(err.message);

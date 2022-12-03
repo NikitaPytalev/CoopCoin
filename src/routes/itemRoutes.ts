@@ -57,6 +57,35 @@ router.get('/items/:id', auth, itemController.item_get);
 
 /**
  * @openapi
+ * /items/{id}/image:
+ *   get:
+ *     tags:
+ *       - items
+ *     summary: Find image by item ID
+ *     description: Returns an image of an item
+ *     security:
+ *       - bearerAuth: []
+ *     produces:
+ *       - image/png
+ *     parameters:
+ *     - name: id
+ *       in: path
+ *       description: ID of an item
+ *       required: true
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *       401:
+ *         $ref: '#/components/responses/authenticationError'
+ *       403:
+ *         $ref: '#/components/responses/authorizationError'
+ *       404:
+ *         $ref: '#/components/responses/entityNotFoundError'
+ */
+router.get('/items/:id/image', auth, itemController.item_image_get);
+
+/**
+ * @openapi
  * /items:
  *   post:
  *     tags:
