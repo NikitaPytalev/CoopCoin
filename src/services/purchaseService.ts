@@ -15,6 +15,8 @@ export const findById = async (id: string): Promise<Purchase> => {
 
   if (!purchase) throw new EntityNotFoundException('Purchase');
 
+  purchase.item = await itemService.findById(purchase.itemId);
+
   return purchase;
 };
 
@@ -39,4 +41,11 @@ export const addPurchase = async (payload: PurchasePayload) => {
 /**
  * Запрашивает список всех покупок из базы данных
  */
-export const getAllPurchases = async () => await dataSource.getRepository(Purchase).find();
+export const getAllPurchases = async () => {
+  const purchases = await dataSource.getRepository(Purchase).find();
+  for (const purchase of purchases) {
+    purchase.item = await itemService.findById(purchase.itemId);
+  }
+
+  return purchases;
+};

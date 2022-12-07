@@ -17,7 +17,7 @@ export default class Purchase {
   @JoinColumn({ name: 'itemId' })
   item: Item;
 
-  @ManyToOne(() => User, (user) => user)
+  @ManyToOne(() => User, (user) => user, { eager: true })
   @JoinColumn({ name: 'buyerId' })
   buyer: User;
 }

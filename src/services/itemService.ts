@@ -1,7 +1,6 @@
 import Item from '../data/models/Item';
 import dataSource from '../data/dataSource';
 import { EntityNotFoundException } from '../errors/EntityNotFoundException';
-import { item_post } from '../controllers/itemController';
 
 /**
  * Запрашивает айтем по переданному id у базы данных
