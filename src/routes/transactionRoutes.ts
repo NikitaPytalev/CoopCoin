@@ -64,6 +64,8 @@ router.get('/transactions', auth, transactionController.index);
  *     responses:
  *       201:
  *         description: Successful operation
+ *       400:
+ *         $ref: '#/components/responses/invalidOperationError'
  *       401:
  *         $ref: '#/components/responses/authenticationError'
  *       403:

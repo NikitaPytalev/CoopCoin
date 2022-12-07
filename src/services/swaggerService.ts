@@ -18,6 +18,9 @@ const options = {
         }
       },
       responses: {
+        invalidOperationError: {
+          description: 'Operation failed'
+        },
         authenticationError: {
           description: 'Authentication failed'
         },

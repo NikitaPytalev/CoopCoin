@@ -50,6 +50,8 @@ router.get('/purchases', auth, purchaseController.index);
  *                 type: string
  *                 example: af80a51c-afc7-4df5-a5b6-c8887dd25477
  *     responses:
+ *       400:
+ *         $ref: '#/components/responses/invalidOperationError'
  *       401:
  *         $ref: '#/components/responses/authenticationError'
  *       403:

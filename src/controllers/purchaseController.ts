@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { EntityNotFoundException } from '../errors/EntityNotFoundException';
+import { InvalidOperationException } from '../errors/InvalidOperationException';
 import * as purchaseService from '../services/purchaseService';
 
 /**
@@ -27,6 +28,9 @@ export const purchase_post = async (req: Request, res: Response) => {
   } catch (err) {
     if (err instanceof EntityNotFoundException) {
       res.status(404).send(err.message);
+    }
+    if (err instanceof InvalidOperationException) {
+      res.status(400).send(err.message);
     }
   }
 };

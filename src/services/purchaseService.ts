@@ -4,6 +4,7 @@ import PurchasePayload from '../models/purchasePayload';
 import * as itemService from './itemService';
 import * as userService from './userService';
 import { EntityNotFoundException } from '../errors/EntityNotFoundException';
+import { InvalidOperationException } from '../errors/InvalidOperationException';
 
 /**
  * Ищет покупку по переданному id в базе данных
@@ -29,6 +30,8 @@ export const addPurchase = async (payload: PurchasePayload) => {
 
   const user = await userService.findById(payload.buyerId);
   if (!user) throw new EntityNotFoundException('User');
+
+  if (user.giftBalance - item.price < 0) throw new InvalidOperationException('Insufficient funds!');
 
   item.amount--;
   user.giftBalance -= item.price;

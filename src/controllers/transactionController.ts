@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { InvalidOperationException } from '../errors/InvalidOperationException';
 import TransactionPayload from '../models/transactionPayload';
 import * as transactionService from '../services/transactionService';
 
@@ -15,9 +16,15 @@ export const index = async (req: Request, res: Response) => {
  * Эта функция запрашивает transaction сервис создать транзакцию по данным из тела запроса
  */
 export const transaction_post = async (req: Request, res: Response) => {
-  const transaction = req.body as TransactionPayload;
+  try {
+    const transaction = req.body as TransactionPayload;
 
-  await transactionService.addTransaction(transaction);
+    await transactionService.addTransaction(transaction);
 
-  res.sendStatus(201);
+    res.sendStatus(201);
+  } catch (err) {
+    if (err instanceof InvalidOperationException) {
+      res.status(400).send(err.message);
+    }
+  }
 };

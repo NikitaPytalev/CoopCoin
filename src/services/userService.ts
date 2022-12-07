@@ -1,6 +1,7 @@
 import User from '../data/models/User';
 import dataSource from '../data/dataSource';
 import { EntityNotFoundException } from '../errors/EntityNotFoundException';
+import { InvalidOperationException } from '../errors/InvalidOperationException';
 
 /**
  * Эта функция позволяет найти юзера по id
@@ -47,6 +48,8 @@ export const updateSystemBalance = async (userId: string, amount: number) => {
 
   if (!user) throw new EntityNotFoundException('User');
 
+  if (user.systemBalance + amount < 0) throw new InvalidOperationException('Insufficient funds!');
+
   await dataSource.getRepository(User).update(
     { id: userId },
     {
@@ -63,6 +66,8 @@ export const updateGiftBalance = async (userId: string, amount: number) => {
   const user = await findById(userId);
 
   if (!user) throw new EntityNotFoundException('User');
+
+  if (user.giftBalance + amount < 0) throw new InvalidOperationException('Insufficient funds!');
 
   await dataSource.getRepository(User).update(
     { id: userId },
