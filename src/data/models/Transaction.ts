@@ -31,11 +31,11 @@ export default class Transaction {
   @Column()
   destUserId: string;
 
-  @ManyToOne(() => User, (user) => user)
+  @ManyToOne(() => User, (user) => user, { eager: true })
   @JoinColumn({ name: 'srcUserId' })
   srcUser: User;
 
-  @ManyToOne(() => User, (user) => user)
+  @ManyToOne(() => User, (user) => user, { eager: true })
   @JoinColumn({ name: 'destUserId' })
   destUser: User;
 }
