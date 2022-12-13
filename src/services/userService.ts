@@ -2,7 +2,7 @@ import User from '../data/models/User';
 import dataSource from '../data/dataSource';
 import { EntityNotFoundException } from '../errors/EntityNotFoundException';
 import { InvalidOperationException } from '../errors/InvalidOperationException';
-import BalancesPayload from '../models/balancesPayload';
+
 /**
  * Эта функция позволяет найти юзера по id
  */
@@ -14,6 +14,19 @@ export const findById = async (id: string): Promise<User> => {
   if (!user) throw new EntityNotFoundException('User');
 
   return user;
+};
+
+/**
+ * Проверяет существование юзера по имейлу
+ */
+export const checkIfUserExists = async (email: string): Promise<boolean> => {
+  const user = await dataSource.getRepository(User).findOneBy({
+    email
+  });
+
+  if (user) return false;
+
+  return true;
 };
 
 /**

@@ -11,7 +11,7 @@ export const signup_post = async (req: Request, res: Response) => {
 
   const isSignedUp = await authService.signUp(user);
 
-  if (!isSignedUp) res.status(409).send('User already exists');
+  if (!isSignedUp) return res.status(409).send('User already exists');
 
   res.sendStatus(201);
 };

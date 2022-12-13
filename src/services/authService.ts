@@ -8,7 +8,9 @@ import { EntityNotFoundException } from '../errors/EntityNotFoundException';
  * Запрашивает userService создать юзера по переданным данным.
  */
 export const signUp = async (user: Partial<User>): Promise<boolean> => {
-  // TODO: Add if exists check
+  const doesExist = await userService.checkIfUserExists(user.email!);
+
+  if (!doesExist) return false;
 
   await userService.addUser(user);
 
