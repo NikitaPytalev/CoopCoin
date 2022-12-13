@@ -32,6 +32,7 @@ export const addPurchase = async (payload: PurchasePayload) => {
   if (!user) throw new EntityNotFoundException('User');
 
   if (user.giftBalance - item.price < 0) throw new InvalidOperationException('Insufficient funds!');
+  if (item.amount == 0) throw new InvalidOperationException('Out of stock!');
 
   item.amount--;
   user.giftBalance -= item.price;
