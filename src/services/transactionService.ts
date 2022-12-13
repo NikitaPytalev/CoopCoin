@@ -26,7 +26,7 @@ export const addTransaction = async (transaction: TransactionPayload) => {
     await userService.updateGiftBalance(transaction.srcUserId, -transaction.amount);
   }
 
-  await userService.updateGiftBalance(transaction.destUserId, transaction.amount);
+  await userService.updateGiftBalance(transaction.destUserId, transaction.amount, false);
 
   await dataSource.getRepository(Transaction).insert(transaction);
 };
