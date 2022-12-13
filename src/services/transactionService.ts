@@ -20,10 +20,6 @@ export const findById = async (id: string): Promise<Transaction | null> => {
  * Эта функция добавляет транзакцию в бд
  */
 export const addTransaction = async (transaction: TransactionPayload) => {
-  // TODO: Add check to aboid negative balances
-
-  // TODO: Implement check for three gifr balance transactions limit
-
   if (transaction.type == TransactionType.System) {
     await userService.updateSystemBalance(transaction.srcUserId, -transaction.amount);
   } else {

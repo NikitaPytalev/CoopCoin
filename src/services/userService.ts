@@ -81,11 +81,13 @@ export const updateGiftBalance = async (userId: string, amount: number) => {
   if (!user) throw new EntityNotFoundException('User');
 
   if (user.giftBalance + amount < 0) throw new InvalidOperationException('Insufficient funds!');
+  if (user.giftTransactionsAmount == 0) throw new InvalidOperationException('Out of gift transaction!');
 
   await dataSource.getRepository(User).update(
     { id: userId },
     {
-      giftBalance: user.giftBalance + amount
+      giftBalance: user.giftBalance + amount,
+      giftTransactionsAmount: user.giftTransactionsAmount - 1
     }
   );
 };
