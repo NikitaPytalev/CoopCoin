@@ -18,7 +18,7 @@ dataSource
   .then(() => console.log('Connection has been established.'))
   .catch((err) => console.error('Error during Data Source initialization:', err));
 
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 8000;
 
 const app = express();
 

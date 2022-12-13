@@ -2,7 +2,7 @@ import User from '../data/models/User';
 import dataSource from '../data/dataSource';
 import { EntityNotFoundException } from '../errors/EntityNotFoundException';
 import { InvalidOperationException } from '../errors/InvalidOperationException';
-
+import BalancesPayload from '../models/balancesPayload';
 /**
  * Эта функция позволяет найти юзера по id
  */
@@ -81,3 +81,17 @@ export const updateGiftBalance = async (userId: string, amount: number) => {
  * Обновляет юзера
  */
 export const updateUser = async (user: User) => await dataSource.getRepository(User).save(user);
+
+/**
+ * Возвращает балансы юзера
+ */
+export const getUserBalances = async (userId: string) => {
+  const user = await findById(userId);
+
+  if (!user) throw new EntityNotFoundException('User');
+
+  return {
+    system: user.systemBalance,
+    gift: user.giftBalance
+  };
+};

@@ -40,3 +40,18 @@ export const user_balance_patch = async (req: Request, res: Response) => {
     }
   }
 };
+
+/**
+ * Возвращает балансы юзера
+ */
+export const user_balance_get = async (req: Request, res: Response) => {
+  try {
+    const balances = await userService.getUserBalances(req.params.id);
+
+    res.status(200).send(balances);
+  } catch (err) {
+    if (err instanceof EntityNotFoundException) {
+      res.status(404).send(err.message);
+    }
+  }
+};
