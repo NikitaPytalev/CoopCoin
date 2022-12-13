@@ -93,7 +93,7 @@ router.patch('/users/:id/balance/:amount', [auth, isAdmin], userController.user_
  *     tags:
  *       - users
  *     summary: Retrieve user balances by user ID
- *     description: Returns a use rbalances
+ *     description: Returns a user balances
  *     security:
  *       - bearerAuth: []
  *     produces:
@@ -114,5 +114,34 @@ router.patch('/users/:id/balance/:amount', [auth, isAdmin], userController.user_
  *         $ref: '#/components/responses/entityNotFoundError'
  */
 router.get('/users/:id/balance', [auth], userController.user_balance_get);
+
+/**
+ * @openapi
+ * /users/{id}/transactions:
+ *   get:
+ *     tags:
+ *       - users
+ *     summary: Retrieve user transactions list by user ID
+ *     description: Returns user transactions
+ *     security:
+ *       - bearerAuth: []
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *     - name: id
+ *       in: path
+ *       description: ID of user to return
+ *       required: true
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *       401:
+ *         $ref: '#/components/responses/authenticationError'
+ *       403:
+ *         $ref: '#/components/responses/authorizationError'
+ *       404:
+ *         $ref: '#/components/responses/entityNotFoundError'
+ */
+router.get('/users/:id/transactions', [auth], userController.user_transactions_get);
 
 export default router;

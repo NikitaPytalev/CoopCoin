@@ -3,6 +3,7 @@ import dataSource from '../data/dataSource';
 import { TransactionType } from '../data/enums/TransactionType';
 import * as userService from '../services/userService';
 import TransactionPayload from '../models/transactionPayload';
+import { EntityNotFoundException } from '../errors/EntityNotFoundException';
 
 /**
  * Эта функция ище транзакцию в бд по id
@@ -38,6 +39,30 @@ export const addTransaction = async (transaction: TransactionPayload) => {
  * Эта функция возвращает список всех транзакций из базы данных
  */
 export const getAllTransactions = async () => await dataSource.getRepository(Transaction).find();
+
+export const getUserTransactions = async (userId: string): Promise<Transaction[]> => {
+  const user = await userService.findById(userId);
+
+  if (!user) throw new EntityNotFoundException('User');
+
+  const srcTransactions = await dataSource.getRepository(Transaction).find({
+    where: {
+      srcUserId: userId
+    }
+  });
+
+  const destTransactions = await dataSource.getRepository(Transaction).find({
+    where: {
+      destUserId: userId
+    }
+  });
+
+  const transactions = srcTransactions
+    .concat(destTransactions)
+    .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+
+  return transactions;
+};
 
 //export const getNPopularTransactionDests = async () => {
 // const transactionsRepository = dataSource.getRepository(Transaction);

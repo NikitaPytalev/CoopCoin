@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { EntityNotFoundException } from '../errors/EntityNotFoundException';
 import * as userService from '../services/userService';
+import * as transactionService from '../services/transactionService';
 
 /**
  * Эта функция обращается к юзер сервису для получения всех юзеров.
@@ -49,6 +50,21 @@ export const user_balance_get = async (req: Request, res: Response) => {
     const balances = await userService.getUserBalances(req.params.id);
 
     res.status(200).send(balances);
+  } catch (err) {
+    if (err instanceof EntityNotFoundException) {
+      res.status(404).send(err.message);
+    }
+  }
+};
+
+/**
+ * Возвращает транзакции юзера
+ */
+export const user_transactions_get = async (req: Request, res: Response) => {
+  try {
+    const transactions = await transactionService.getUserTransactions(req.params.id);
+
+    res.status(200).send(transactions);
   } catch (err) {
     if (err instanceof EntityNotFoundException) {
       res.status(404).send(err.message);
