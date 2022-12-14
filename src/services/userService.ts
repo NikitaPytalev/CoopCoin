@@ -75,19 +75,17 @@ export const updateSystemBalance = async (userId: string, amount: number) => {
  * Эта функция делает запрос в бд для пополнения подарочного баланса
  * юзера на основе параметров количества и id
  */
-export const updateGiftBalance = async (userId: string, amount: number, isSource = true) => {
+export const updateGiftBalance = async (userId: string, amount: number) => {
   const user = await findById(userId);
 
   if (!user) throw new EntityNotFoundException('User');
 
   if (user.giftBalance + amount < 0) throw new InvalidOperationException('Insufficient funds!');
-  if (isSource && user.giftTransactionsAmount == 0) throw new InvalidOperationException('Out of gift transaction!');
 
   await dataSource.getRepository(User).update(
     { id: userId },
     {
-      giftBalance: user.giftBalance + amount,
-      giftTransactionsAmount: user.giftTransactionsAmount - 1
+      giftBalance: user.giftBalance + amount
     }
   );
 };

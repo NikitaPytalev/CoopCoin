@@ -20,9 +20,6 @@ export default class User {
   @Column()
   password: string;
 
-  @Column({ default: 3 })
-  giftTransactionsAmount: number;
-
   @Column({ type: 'enum', enum: Role, default: Role.User })
   role: Role;
 
